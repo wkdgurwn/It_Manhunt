@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private double id;
 
     @Column(nullable = false, length = 20)
     private String username;
@@ -29,22 +29,17 @@ public class User {
     @JoinColumn(name = "joinRoom")
     private Room joinRoom;
 
-
     @Column(nullable = false)
-    private int life = 3;
+    private int life;
 
     public User(String username, String qrCodeUrl) {
         this.username = username;
         this.qrCodeUrl = qrCodeUrl;
     }
 
-    public void UpdateLocation(float latitude, float longitude) {
+    public void updateLocation(float latitude, float longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public void UpdateLife(int life) {
-        this.life--;
     }
 
 }

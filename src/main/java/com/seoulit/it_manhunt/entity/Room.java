@@ -1,6 +1,7 @@
 package com.seoulit.it_manhunt.entity;
 
 
+import com.seoulit.it_manhunt.dto.RoomResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,30 +13,27 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private double id;
 
     @Column(nullable = false)
     private String roomName;
 
     @Column(nullable = false)
-    private final int maxJoin = 10;
+    private int maxJoin;
 
     @Column(nullable = false)
-    private int currentJoin = 0;
+    private int currentJoin;
 
     @Enumerated(EnumType.STRING)
     private RoomStatus roomStatus = RoomStatus.WAITING;
 
-    public Room(int id, String roomName) {
-        this.id = id;
+    public Room(String roomName, int maxJoin, int currentJoin) {
         this.roomName = roomName;
+        this.maxJoin = maxJoin;
+        this.currentJoin = currentJoin;
     }
 
-    public void UpdateJoin(int currentJoin) {
-        this.currentJoin++;
-    }
-
-    public void UpdateRoomStatus(RoomStatus roomStatus) {
+    public void updateRoomStatus(RoomStatus roomStatus) {
         this.roomStatus = roomStatus;
     }
 }

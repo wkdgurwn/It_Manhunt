@@ -1,9 +1,11 @@
 package com.seoulit.it_manhunt.entity;
 
+import com.seoulit.it_manhunt.dto.TargetResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -13,7 +15,7 @@ public class Target {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private double id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hunterId")
@@ -27,7 +29,7 @@ public class Target {
     private TargetStatus targetStatus = TargetStatus.RUNNING;
 
     @Column(nullable = false)
-    private LocalTime caughtWhen;
+    private LocalDateTime caughtWhen;
 
     @Column(nullable = false)
     private float targetLatitude;
@@ -42,8 +44,11 @@ public class Target {
         this.targetLongitude = targetLongitude;
     }
 
-    public void UpdateTargetStatus(TargetStatus targetStatus, LocalTime caughtWhen) {
-        this.caughtWhen = caughtWhen;
+    public void updateTargetStatus(TargetStatus targetStatus, LocalTime caughtWhen) {
         this.targetStatus = targetStatus;
+
+        if (targetStatus == TargetStatus.CAUGHT) {
+            this.caughtWhen = LocalDateTime.now();
+        }
     }
 }
